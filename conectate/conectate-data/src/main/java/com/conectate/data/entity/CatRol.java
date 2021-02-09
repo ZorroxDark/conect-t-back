@@ -1,9 +1,19 @@
 package com.conectate.data.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -19,7 +29,7 @@ public class CatRol implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idcat_rol", unique=true, nullable=false)
-	private int idcatRol;
+	private int idCatRol;
 
 	@Column(name="clave_rol", nullable=false, length=45)
 	private String claveRol;
@@ -38,32 +48,28 @@ public class CatRol implements Serializable {
 	@Column(nullable=false, length=45)
 	private String desc;
 
-	@Column(name="id_cat_rol", unique=true, nullable=false)
-	private int idCatRol;
+	
 
 	@Column(nullable=false, length=45)
 	private String nombre;
 
 	@Column(nullable=false)
-	private byte status;
+	private int status;
 
 	//bi-directional many-to-one association to UsuarioRole
-	@OneToMany(mappedBy="catRol1")
-	private List<UsuarioRole> usuarioRoles1;
+	@OneToMany(mappedBy="catRol")
+	private List<UsuarioRole> usuarioRoles;
 
-	//bi-directional many-to-one association to UsuarioRole
-	@OneToMany(mappedBy="catRol2")
-	private List<UsuarioRole> usuarioRoles2;
 
 	public CatRol() {
 	}
 
-	public int getIdcatRol() {
-		return this.idcatRol;
+	public int getIdCatRol() {
+		return this.idCatRol;
 	}
 
-	public void setIdcatRol(int idcatRol) {
-		this.idcatRol = idcatRol;
+	public void setIdCatRol(int idCatRol) {
+		this.idCatRol = idCatRol;
 	}
 	
 	public String getClaveRol() {
@@ -106,13 +112,7 @@ public class CatRol implements Serializable {
 		this.desc = desc;
 	}
 
-	public int getIdCatRol() {
-		return this.idCatRol;
-	}
-
-	public void setIdCatRol(int idCatRol) {
-		this.idCatRol = idCatRol;
-	}
+	
 
 	public String getNombre() {
 		return this.nombre;
@@ -122,31 +122,23 @@ public class CatRol implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public byte getStatus() {
+	public int getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(byte status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
-	public List<UsuarioRole> getUsuarioRoles1() {
-		return this.usuarioRoles1;
+	public List<UsuarioRole> getUsuarioRoles() {
+		return this.usuarioRoles;
 	}
 
-	public void setUsuarioRoles1(List<UsuarioRole> usuarioRoles1) {
-		this.usuarioRoles1 = usuarioRoles1;
+	public void setUsuarioRoles(List<UsuarioRole> usuarioRoles) {
+		this.usuarioRoles = usuarioRoles;
 	}
 
 	
-
-	public List<UsuarioRole> getUsuarioRoles2() {
-		return this.usuarioRoles2;
-	}
-
-	public void setUsuarioRoles2(List<UsuarioRole> usuarioRoles2) {
-		this.usuarioRoles2 = usuarioRoles2;
-	}
 
 	
 }

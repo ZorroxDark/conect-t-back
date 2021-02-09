@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_usuario", unique=true, nullable=false)
+	@Column(name="idusuario", unique=true, nullable=false)
 	private int idUsuario;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -62,11 +62,6 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="user_status", nullable=false)
 	private CatStatusUsuario catStatusUsuario;
 
-	//bi-directional many-to-one association to UsuarioRole
-	@OneToMany(mappedBy="usuario1")
-	private List<UsuarioRole> usuarioRoles1;
-
-	
 
 	public Usuario() {
 	}
@@ -148,19 +143,5 @@ public class Usuario implements Serializable {
 	public void setCatStatusUsuario(CatStatusUsuario catStatusUsuario) {
 		this.catStatusUsuario = catStatusUsuario;
 	}
-
-	public List<UsuarioRole> getUsuarioRoles1() {
-		return this.usuarioRoles1;
-	}
-
-	public void setUsuarioRoles1(List<UsuarioRole> usuarioRoles1) {
-		this.usuarioRoles1 = usuarioRoles1;
-	}
-
-	
-
-	
-
-	
 
 }
