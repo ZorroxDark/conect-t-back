@@ -2,7 +2,7 @@
 .settings
 .metadata
 target
-.classpath
+*.classpath
 bin
 *.map
 *.js
