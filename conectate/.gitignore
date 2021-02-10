@@ -1,0 +1,16 @@
+.project
+.settings
+.metadata
+target
+.classpath
+bin
+*.map
+*.js
+assets
+*.html
+*.png
+*.ico
+3rdpartylicenses.txt
+*.css
+.factorypath
+
