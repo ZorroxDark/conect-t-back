@@ -27,7 +27,7 @@ public class CatRol implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idcat_rol", unique=true, nullable=false)
 	private int idCatRol;
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,9 +30,21 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idusuario", unique=true, nullable=false)
 	private int idUsuario;
+	
+	@Column(name="user_id_con", nullable=false)
+	private int userIdCon;
+	
+	@Column(name="user_email", length=300)
+	private String userEmail;
+
+	@Column(name="user_matricula", nullable=false, length=10)
+	private String userMatricula;
+
+	@Column(name="user_pwd", nullable=false, length=45)
+	private String userPwd;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ctrl_fecha_create")
@@ -44,21 +57,8 @@ public class Usuario implements Serializable {
 	@Column(name="ctrl_user_mod", nullable=false)
 	private int ctrlUserMod;
 
-	
-	@Column(name="user_email", length=300)
-	private String userEmail;
-
-	@Column(name="user_id_con", nullable=false)
-	private int userIdCon;
-
-	@Column(name="user_matricula", nullable=false, length=10)
-	private String userMatricula;
-
-	@Column(name="user_pwd", nullable=false, length=45)
-	private String userPwd;
-
 	//bi-directional many-to-one association to CatStatusUsuario
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_status", nullable=false)
 	private CatStatusUsuario catStatusUsuario;
 
