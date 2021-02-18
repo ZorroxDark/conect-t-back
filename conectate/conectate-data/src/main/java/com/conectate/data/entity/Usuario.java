@@ -34,7 +34,7 @@ public class Usuario implements Serializable {
 	@Column(name="idusuario", unique=true, nullable=false)
 	private int idUsuario;
 	
-	@Column(name="user_id_con", nullable=false)
+	@Column(name="user_id_con")
 	private int userIdCon;
 	
 	@Column(name="user_email", length=300)
@@ -43,7 +43,7 @@ public class Usuario implements Serializable {
 	@Column(name="user_matricula", nullable=false, length=10)
 	private String userMatricula;
 
-	@Column(name="user_pwd", nullable=false, length=45)
+	@Column(name="user_pwd", nullable=false, length=250)
 	private String userPwd;
 	
 	@Temporal(TemporalType.TIMESTAMP)

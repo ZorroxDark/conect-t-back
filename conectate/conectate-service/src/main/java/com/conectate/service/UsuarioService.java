@@ -17,23 +17,24 @@ import com.conectate.data.entity.Usuario;
 import com.conectate.data.repository.IUsuarioDao;
 
 @Service
-
+@Transactional(readOnly = true)
 public class UsuarioService implements UserDetailsService{
 
 	@Autowired
 	private IUsuarioDao usuarioDao;
 	
-	@Transactional(readOnly = true)
+
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		Usuario usuario = usuarioDao.findByUserEmail(username);
 		
 		if(usuario == null) {
+			//logger.error("Error en el login: noexiste el usuario '"+username+"' en el sistema ! ");
 			throw new UsernameNotFoundException("Error en el login: noexiste el usuario '"+username+"' en el sistema ! ");
 			
 		}
 		
-		SimpleGrantedAuthority simple =new  SimpleGrantedAuthority("AMDIN");
+		SimpleGrantedAuthority simple =new  SimpleGrantedAuthority("ROLE_SAMDIN");
 		
 		List<GrantedAuthority> authorities =new ArrayList<GrantedAuthority>(); 
 		authorities.add(simple);
