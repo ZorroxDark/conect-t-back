@@ -1,4 +1,4 @@
-package com.conectate.data.entity;
+package com.conectate.entity.test;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -17,9 +17,9 @@ public class CatStatusUsuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_cat_status_usuario", unique=true, nullable=false)
-	private int idcatStatusUsuario;
+	private int idCatStatusUsuario;
 
 	@Column(nullable=false, length=45)
 	private String clave;
@@ -38,16 +38,19 @@ public class CatStatusUsuario implements Serializable {
 	@Column(nullable=false, length=150)
 	private String desc;
 
+	//bi-directional many-to-one association to Usuario
+	@OneToMany(mappedBy="catStatusUsuario")
+	private List<Usuario> usuarios;
 
 	public CatStatusUsuario() {
 	}
 
-	public int getIdcatStatusUsuario() {
-		return this.idcatStatusUsuario;
+	public int getIdCatStatusUsuario() {
+		return this.idCatStatusUsuario;
 	}
 
-	public void setIdcatStatusUsuario(int idcatStatusUsuario) {
-		this.idcatStatusUsuario = idcatStatusUsuario;
+	public void setIdCatStatusUsuario(int idCatStatusUsuario) {
+		this.idCatStatusUsuario = idCatStatusUsuario;
 	}
 
 	public String getClave() {
@@ -90,7 +93,26 @@ public class CatStatusUsuario implements Serializable {
 		this.desc = desc;
 	}
 
-	
-	
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Usuario addUsuario(Usuario usuario) {
+		getUsuarios().add(usuario);
+		usuario.setCatStatusUsuario(this);
+
+		return usuario;
+	}
+
+	public Usuario removeUsuario(Usuario usuario) {
+		getUsuarios().remove(usuario);
+		usuario.setCatStatusUsuario(null);
+
+		return usuario;
+	}
 
 }

@@ -2,18 +2,22 @@ package com.conectate.data.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 
 /**
@@ -31,6 +35,10 @@ public class UsuarioRole implements Serializable {
 	@Column(name="id_usu_rol", nullable=false)
 	private int idUsuRol;
 	
+	@Column(name="id_usuario", nullable=false , insertable=false ,updatable=false)
+	private int idUsuario;
+
+	
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ctrl_fecha_create")
@@ -42,16 +50,19 @@ public class UsuarioRole implements Serializable {
 
 	@Column(name="ctrl_user_mod", nullable=false)
 	private int ctrlUserMod;
+	
 
-	//bi-directional many-to-one association to CatRol
-	@ManyToOne
-	@JoinColumn(name="id_cat_rol", nullable=false)
-	private CatRol catRol;
+	//bi-directional many-to-one association to CatStatusUsuario
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="usu_cat_rol", nullable=false)
+	private CatRol CatRol;
+	
 
-	//bi-directional many-to-one association to Usuario
+	//bi-directional many-to-one association to CatRol 
 	@ManyToOne
-	@JoinColumn(name="id_user", nullable=false)
-	private Usuario usuario;
+	@JoinColumn(name="id_usuario", nullable=false)
+	private Usuario usuarioRole;
+
 
 	
 
@@ -95,21 +106,60 @@ public class UsuarioRole implements Serializable {
 		this.idUsuRol = idUsuRol;
 	}
 
+	
+	
+//    
+//	//Funciono
+//	public Usuario getCatRol() {
+//		return catRol;
+//	}
+//
+//
+//
+//	public void setCatRol(Usuario catRol) {
+//		this.catRol = catRol;
+//	}
+
+
+
 	public CatRol getCatRol() {
-		return this.catRol;
+		return CatRol;
 	}
+
+
 
 	public void setCatRol(CatRol catRol) {
-		this.catRol = catRol;
+		CatRol = catRol;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
+
+
+	public int getIdUsuario() {
+		return this.idUsuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
-	
+
+
+
+	public Usuario getUsuarioRole() {
+		return usuarioRole;
+	}
+
+
+
+	public void setUsuarioRole(Usuario usuarioRole) {
+		this.usuarioRole = usuarioRole;
+	}
+
+
+
+
+
+
 
 }

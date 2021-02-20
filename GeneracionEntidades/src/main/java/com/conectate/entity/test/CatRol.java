@@ -1,22 +1,8 @@
-package com.conectate.data.entity;
+package com.conectate.entity.test;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -37,6 +23,9 @@ public class CatRol implements Serializable {
 	@Column(name="clave_rol", nullable=false, length=45)
 	private String claveRol;
 
+	@Column(name="clave_rol", nullable=false, length=45)
+	private String claveRol;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ctrl_fecha_create")
 	private Date ctrlFechaCreate;
@@ -51,15 +40,23 @@ public class CatRol implements Serializable {
 	@Column(nullable=false, length=45)
 	private String desc;
 
-	
+	@Column(nullable=false, length=45)
+	private String desc;
+
+	@Column(name="id_cat_rol", nullable=false)
+	private int idCatRol;
+
+	@Column(nullable=false, length=45)
+	private String nombre;
 
 	@Column(nullable=false, length=45)
 	private String nombre;
 
 	@Column(nullable=false)
-	private int status;
+	private byte status;
 
-	
+	@Column(nullable=false)
+	private byte status;
 
 	public CatRol() {
 	}
@@ -71,7 +68,15 @@ public class CatRol implements Serializable {
 	public void setIdCatRol(int idCatRol) {
 		this.idCatRol = idCatRol;
 	}
-	
+
+	public String getClaveRol() {
+		return this.claveRol;
+	}
+
+	public void setClaveRol(String claveRol) {
+		this.claveRol = claveRol;
+	}
+
 	public String getClaveRol() {
 		return this.claveRol;
 	}
@@ -112,7 +117,21 @@ public class CatRol implements Serializable {
 		this.desc = desc;
 	}
 
-	
+	public String getDesc() {
+		return this.desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public int getIdCatRol() {
+		return this.idCatRol;
+	}
+
+	public void setIdCatRol(int idCatRol) {
+		this.idCatRol = idCatRol;
+	}
 
 	public String getNombre() {
 		return this.nombre;
@@ -122,18 +141,28 @@ public class CatRol implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public int getStatus() {
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public byte getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(byte status) {
 		this.status = status;
 	}
 
-	
-	
+	public byte getStatus() {
+		return this.status;
+	}
 
-	
+	public void setStatus(byte status) {
+		this.status = status;
+	}
 
-	
 }

@@ -23,5 +23,10 @@
 		<class>com.conectate.entity.TelefonoIglesia</class>
 		<class>com.conectate.entity.Usuario</class>
 		<class>com.conectate.entity.UsuarioRole</class>
+		<class>com.conectate.entity.test.CatRol</class>
+		<class>com.conectate.entity.test.CatStatusUsuario</class>
+		<class>com.conectate.entity.test.Usuario</class>
+		<class>com.conectate.entity.test.UsuarioRole</class>
+		<class>com.conectate.entity.test.CatStatusCongregante</class>
 	</persistence-unit>
 </persistence>

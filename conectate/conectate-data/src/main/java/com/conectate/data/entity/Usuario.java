@@ -1,22 +1,30 @@
 package com.conectate.data.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 
 /**
@@ -31,7 +39,7 @@ public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="idusuario", unique=true, nullable=false)
+	@Column(name="id_usuario", unique=true, nullable=false)
 	private int idUsuario;
 	
 	@Column(name="user_id_con")
@@ -61,8 +69,13 @@ public class Usuario implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_status", nullable=false)
 	private CatStatusUsuario catStatusUsuario;
+	
 
-
+	//bi-directional many-to-one association to UsuarioRole
+	@OneToMany(mappedBy="usuarioRole") 
+	private List<UsuarioRole> userRol;
+	
+	
 	public Usuario() {
 	}
 
@@ -99,10 +112,6 @@ public class Usuario implements Serializable {
 	public void setCtrlUserMod(int ctrlUserMod) {
 		this.ctrlUserMod = ctrlUserMod;
 	}
-
-	
-
-
 
 	public String getUserEmail() {
 		return this.userEmail;
@@ -143,5 +152,15 @@ public class Usuario implements Serializable {
 	public void setCatStatusUsuario(CatStatusUsuario catStatusUsuario) {
 		this.catStatusUsuario = catStatusUsuario;
 	}
+
+	public List<UsuarioRole> getUserRol() {
+		return userRol;
+	}
+
+	public void setUserRol(List<UsuarioRole> userRol) {
+		this.userRol = userRol;
+	}
+
+	
 
 }
