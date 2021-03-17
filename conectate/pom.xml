@@ -1,16 +1,27 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.conectate</groupId>
-  <artifactId>conectate</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>Proyecto Conectate de Vida Nueva</name>
-  <description>Gestion de congregantes de congrgacion de Vida Nueva para el servicio</description>
-  <modules>
-  	<module>conectate-common</module>
-  	<module>conectate-data</module>
-  	<module>conectate-service</module>
-  	<module>conectate-web</module>
-  	
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.conectate</groupId>
+	<artifactId>conectate</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Proyecto Conectate de Vida Nueva</name>
+	<description>Gestion de congregantes de congrgacion de Vida Nueva para el servicio</description>
+	<modules>
+		<module>conectate-common</module>
+		<module>conectate-data</module>
+		<module>conectate-service</module>
+		<module>conectate-web</module>
+
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.8</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>
