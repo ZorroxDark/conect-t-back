@@ -3,103 +3,186 @@ package com.conectate.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.conectate.common.dto.NavigationBadgeDTO;
 import com.conectate.common.dto.NavigationDTO;
 import com.conectate.common.dto.NavigationItemDTO;
+import com.conectate.data.entity.NavegacionRole;
+import com.conectate.data.repository.INavegacionDao;
 import com.conectate.service.CatalogoService;
+import com.conectate.service.utils.Utileria;
 
 
 @Service
 public class CatalogoServiceImpl implements CatalogoService{
 
-	
+	@Autowired
+	private INavegacionDao navegacionDao;
 	
 	
 	@Transactional(readOnly = true)
 	public NavigationDTO getNavigation() {
 		
-		NavigationDTO navigationDTO = new NavigationDTO();
+		NavigationDTO result = new NavigationDTO();
 		
-		List<NavigationItemDTO> listResult = new ArrayList<NavigationItemDTO>();
-		List<NavigationItemDTO> listChildrenSub1 = new ArrayList<NavigationItemDTO>();
-		
-		NavigationItemDTO navItem = new NavigationItemDTO();
-		NavigationItemDTO navChildren = new NavigationItemDTO();
-		NavigationItemDTO navChildrenSub1 = new NavigationItemDTO();
-		
-		navItem.setId("congregates");
-		navItem.setTitle("Congregantes");
-		navItem.setSubtitle("Informacion de general congregantes");
-		navItem.setType("group");
-		navItem.setIcon("heroicons_outline:home");
-		
-		
-		navChildren.setId("congregates.con");
-		navChildren.setTitle("Congregantes");
-		navChildren.setType("collapsable");
-		navChildren.setIcon("heroicons_outline:user-group");
-		navChildren.setLink("/dashboards/finance");
-		
-		
-			navChildrenSub1.setId("congregates.con.general");
-			navChildrenSub1.setTitle("General");
-			navChildrenSub1.setType("basic");
-			navChildrenSub1.setLink("/dashboards/finance"); 
-			navChildren.getChildren().add(navChildrenSub1);
-		    
-			navChildrenSub1 = new NavigationItemDTO();
+		try {
 			
-			navChildrenSub1.setId("congregates.con.servidores");
-			navChildrenSub1.setTitle("Servidores");
-			navChildrenSub1.setType("basic");
-			navChildrenSub1.setLink("/dashboards/finance"); 
-			navChildren.getChildren().add(navChildrenSub1);
+			List<NavegacionRole> listNavRole = new ArrayList<NavegacionRole>();
+			listNavRole = navegacionDao.findAll(); 
 			
+			List<NavigationItemDTO> listResultNivel_0 = new ArrayList<NavigationItemDTO>();
+			List<NavigationItemDTO> listResultNivel_1 = new ArrayList<NavigationItemDTO>();
+			List<NavigationItemDTO> listResultNivel_2 = new ArrayList<NavigationItemDTO>();
+			
+			List<NavigationItemDTO> listResultFinal = new ArrayList<NavigationItemDTO>();
+			NavigationItemDTO navItemDto = new NavigationItemDTO();
+			NavigationBadgeDTO navBadgeDto = new NavigationBadgeDTO();
+			
+			for(NavegacionRole navRole:listNavRole) {
+			
+				navItemDto = new NavigationItemDTO();
+				navBadgeDto = new NavigationBadgeDTO();
+				
+				if(navRole.getCatNavegacion().getNivel() == 0) { // Encabezados 
+					
+					navItemDto.setActive(navRole.getCatNavegacion().getActive() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getActive()) : null);
+					navItemDto.setDisabled(navRole.getCatNavegacion().getDisabled() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getDisabled()) : null);
+					navItemDto.setExactMatch(navRole.getCatNavegacion().getExactMatch() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getExactMatch()) : null);
+					navItemDto.setExternalLink(navRole.getCatNavegacion().getExternalLink() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getExternalLink()) : null);
+					
+					navBadgeDto.setBackground(navRole.getCatNavegacion().getBadgeBackground() != null ? navRole.getCatNavegacion().getBadgeBackground(): null);
+					navBadgeDto.setColor(navRole.getCatNavegacion().getBadgeColor() != null ? navRole.getCatNavegacion().getBadgeColor(): null);
+					navBadgeDto.setStyle(navRole.getCatNavegacion().getBadgeStyle() != null ? navRole.getCatNavegacion().getBadgeStyle(): null);
+					navBadgeDto.setTitle(navRole.getCatNavegacion().getBadgeTitle() != null ? navRole.getCatNavegacion().getBadgeTitle(): null);
+					
+					navItemDto.setBadge(navBadgeDto);
+					//navItem.setChildren(children);
+					navItemDto.setClasses(navRole.getCatNavegacion().getClasses() != null ? navRole.getCatNavegacion().getClasses() : null);
+					navItemDto.setIcon(navRole.getCatNavegacion().getIcon() != null ? navRole.getCatNavegacion().getIcon() : null);
+					navItemDto.setIconClasses(navRole.getCatNavegacion().getIconClasses() != null ? navRole.getCatNavegacion().getIconClasses() : null);
+					navItemDto.setId(navRole.getCatNavegacion().getId() != null ? navRole.getCatNavegacion().getId() : null);
+					navItemDto.setLink(navRole.getCatNavegacion().getLink() != null ? navRole.getCatNavegacion().getLink() : null);
+					navItemDto.setMeta(navRole.getCatNavegacion().getMeta() != null ? navRole.getCatNavegacion().getMeta() : null);
+					navItemDto.setSubtitle(navRole.getCatNavegacion().getSubtitle() != null ? navRole.getCatNavegacion().getSubtitle() : null);
+					navItemDto.setTitle(navRole.getCatNavegacion().getTitle() != null ? navRole.getCatNavegacion().getTitle() : null);
+					navItemDto.setType(navRole.getCatNavegacion().getType() != null ? navRole.getCatNavegacion().getType() : null);
+					
+					listResultNivel_0.add(navItemDto);
+				}
+				
+				if(navRole.getCatNavegacion().getNivel() == 1) { //Secciones
+					
+					navItemDto.setActive(navRole.getCatNavegacion().getActive() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getActive()) : null);
+					navItemDto.setDisabled(navRole.getCatNavegacion().getDisabled() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getDisabled()) : null);
+					navItemDto.setExactMatch(navRole.getCatNavegacion().getExactMatch() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getExactMatch()) : null);
+					navItemDto.setExternalLink(navRole.getCatNavegacion().getExternalLink() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getExternalLink()) : null);
+					
+					navBadgeDto.setBackground(navRole.getCatNavegacion().getBadgeBackground() != null ? navRole.getCatNavegacion().getBadgeBackground(): null);
+					navBadgeDto.setColor(navRole.getCatNavegacion().getBadgeColor() != null ? navRole.getCatNavegacion().getBadgeColor(): null);
+					navBadgeDto.setStyle(navRole.getCatNavegacion().getBadgeStyle() != null ? navRole.getCatNavegacion().getBadgeStyle(): null);
+					navBadgeDto.setTitle(navRole.getCatNavegacion().getBadgeTitle() != null ? navRole.getCatNavegacion().getBadgeTitle(): null);
+					
+					navItemDto.setBadge(navBadgeDto);
+					//navItem.setChildren(children);
+					navItemDto.setClasses(navRole.getCatNavegacion().getClasses() != null ? navRole.getCatNavegacion().getClasses() : null);
+					navItemDto.setIcon(navRole.getCatNavegacion().getIcon() != null ? navRole.getCatNavegacion().getIcon() : null);
+					navItemDto.setIconClasses(navRole.getCatNavegacion().getIconClasses() != null ? navRole.getCatNavegacion().getIconClasses() : null);
+					navItemDto.setId(navRole.getCatNavegacion().getId() != null ? navRole.getCatNavegacion().getId() : null);
+					navItemDto.setLink(navRole.getCatNavegacion().getLink() != null ? navRole.getCatNavegacion().getLink() : null);
+					navItemDto.setMeta(navRole.getCatNavegacion().getMeta() != null ? navRole.getCatNavegacion().getMeta() : null);
+					navItemDto.setSubtitle(navRole.getCatNavegacion().getSubtitle() != null ? navRole.getCatNavegacion().getSubtitle() : null);
+					navItemDto.setTitle(navRole.getCatNavegacion().getTitle() != null ? navRole.getCatNavegacion().getTitle() : null);
+					navItemDto.setType(navRole.getCatNavegacion().getType() != null ? navRole.getCatNavegacion().getType() : null);
+					
+					listResultNivel_1.add(navItemDto);
+				}
+				
+				if(navRole.getCatNavegacion().getNivel() == 2) { // SubSecciones
+					
+					navItemDto.setActive(navRole.getCatNavegacion().getActive() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getActive()) : null);
+					navItemDto.setDisabled(navRole.getCatNavegacion().getDisabled() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getDisabled()) : null);
+					navItemDto.setExactMatch(navRole.getCatNavegacion().getExactMatch() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getExactMatch()) : null);
+					navItemDto.setExternalLink(navRole.getCatNavegacion().getExternalLink() != null ? Utileria.setIntABoolean(navRole.getCatNavegacion().getExternalLink()) : null);
+					
+					navBadgeDto.setBackground(navRole.getCatNavegacion().getBadgeBackground() != null ? navRole.getCatNavegacion().getBadgeBackground(): null);
+					navBadgeDto.setColor(navRole.getCatNavegacion().getBadgeColor() != null ? navRole.getCatNavegacion().getBadgeColor(): null);
+					navBadgeDto.setStyle(navRole.getCatNavegacion().getBadgeStyle() != null ? navRole.getCatNavegacion().getBadgeStyle(): null);
+					navBadgeDto.setTitle(navRole.getCatNavegacion().getBadgeTitle() != null ? navRole.getCatNavegacion().getBadgeTitle(): null);
+					
+					navItemDto.setBadge(navBadgeDto);
+					//navItem.setChildren(children);
+					navItemDto.setClasses(navRole.getCatNavegacion().getClasses() != null ? navRole.getCatNavegacion().getClasses() : null);
+					navItemDto.setIcon(navRole.getCatNavegacion().getIcon() != null ? navRole.getCatNavegacion().getIcon() : null);
+					navItemDto.setIconClasses(navRole.getCatNavegacion().getIconClasses() != null ? navRole.getCatNavegacion().getIconClasses() : null);
+					navItemDto.setId(navRole.getCatNavegacion().getId() != null ? navRole.getCatNavegacion().getId() : null);
+					navItemDto.setLink(navRole.getCatNavegacion().getLink() != null ? navRole.getCatNavegacion().getLink() : null);
+					navItemDto.setMeta(navRole.getCatNavegacion().getMeta() != null ? navRole.getCatNavegacion().getMeta() : null);
+					navItemDto.setSubtitle(navRole.getCatNavegacion().getSubtitle() != null ? navRole.getCatNavegacion().getSubtitle() : null);
+					navItemDto.setTitle(navRole.getCatNavegacion().getTitle() != null ? navRole.getCatNavegacion().getTitle() : null);
+					navItemDto.setType(navRole.getCatNavegacion().getType() != null ? navRole.getCatNavegacion().getType() : null);
+					
+					listResultNivel_2.add(navItemDto);
+				}
+				
+			 }
+			
+			
+			int contador = 0;
+			for(NavigationItemDTO seccion:  listResultNivel_1) {
+				//-----> Encabezado
+				//----------> Seccion
+			    //--------------> subSeccion
+				
+				for(NavigationItemDTO hijo:  listResultNivel_2) {
+					
+					String[] partsPadre =  seccion.getId().split("\\.");
+					String[] partsHijo  =  hijo.getId().split("\\.");
+					
+					if(partsPadre[0].equals(partsHijo[0])) {
+						listResultNivel_1.get(contador).getChildren().add(hijo);
+					}
+					
+				}
+			
+				contador++;
+			}
+			
+			 contador = 0;
+			for(NavigationItemDTO encabeza:  listResultNivel_0) {
+				//-----> Encabezado
+				//----------> Seccion
+				
+				for(NavigationItemDTO hijo:  listResultNivel_1) {
+					String[] partsPadre = encabeza.getId().split("\\.");
+					String[] partsHijo  =  hijo.getId().split("\\.");
+					
+					if(partsPadre[0].equals(partsHijo[0])) {
+						listResultNivel_0.get(contador).getChildren().add(hijo);
+					}
+					
+				}
+				
+				contador++;
+			}
+			
+			
+			
+			result.setDefaultNavigation(listResultNivel_0);
+			
+			
+			
+			
+			
+		}catch(Exception e) {
+			System.out.println("Error --> "+ e);
+			
+		}
+		return result;
 		
-		/*
-		children: [
-                   {
-                       id   : 'applications.ecommerce.inventory',
-                       title: 'Inventory',
-                       type : 'basic',
-                       link : '/apps/ecommerce/inventory'
-                   }
-               ]*/
-		
-		navItem.getChildren().add(navChildren);
-		//navChildren = new NavigationItemDTO();
-		
-		
-		/*
-		navChildren.setId("dashboards.analytics");
-		navChildren.setTitle("Analytics");
-		navChildren.setType("basic");
-		navChildren.setIcon("heroicons_outline:chart-pie");
-		navChildren.setLink("/dashboards/analytics");
-		
-		navItem.getChildren().add(navChildren);
-		navChildren = new NavigationItemDTO();
-		
-		navChildren.setId("dashboards.crypto");
-		navChildren.setTitle("Crypto");
-		navChildren.setType("basic");
-		navChildren.setIcon("heroicons_outline:currency-dollar");
-		navChildren.setLink("/dashboards/crypto");
-		
-		navItem.getChildren().add(navChildren);
-		navChildren = new NavigationItemDTO();
-		*/
-		
-		
-		listResult.add(navItem);
-		
-		navigationDTO.setDefaultNavigation(listResult);
-		
-		
-		return navigationDTO;
-		
+
 		
 	}
 	/*********** Ejemplo *************/

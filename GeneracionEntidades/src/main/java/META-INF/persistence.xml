@@ -28,5 +28,7 @@
 		<class>com.conectate.entity.test.Usuario</class>
 		<class>com.conectate.entity.test.UsuarioRole</class>
 		<class>com.conectate.entity.test.CatStatusCongregante</class>
+		<class>com.conectate.entity.test.CatNavegacion</class>
+		<class>com.conectate.entity.test.NavegacionRole</class>
 	</persistence-unit>
 </persistence>
