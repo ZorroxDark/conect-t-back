@@ -10,8 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.conectate.common.dto.NavigationBadgeDTO;
 import com.conectate.common.dto.NavigationDTO;
 import com.conectate.common.dto.NavigationItemDTO;
+import com.conectate.common.dto.UserDTO;
+import com.conectate.common.dto.UserItemDTO;
 import com.conectate.data.entity.NavegacionRole;
+import com.conectate.data.entity.Usuario;
 import com.conectate.data.repository.INavegacionDao;
+import com.conectate.data.repository.IUsuarioDao;
 import com.conectate.service.CatalogoService;
 import com.conectate.service.utils.Utileria;
 
@@ -22,9 +26,13 @@ public class CatalogoServiceImpl implements CatalogoService{
 	@Autowired
 	private INavegacionDao navegacionDao;
 	
+	@Autowired
+	private IUsuarioDao usuarioDao;
+	
+	
 	
 	@Transactional(readOnly = true)
-	public NavigationDTO getNavigation() {
+	public NavigationDTO getNavigation(Long userId) {
 		
 		NavigationDTO result = new NavigationDTO();
 		
@@ -186,6 +194,37 @@ public class CatalogoServiceImpl implements CatalogoService{
 		
 	}
 	/*********** Ejemplo *************/
+
+
+	@Override
+	public UserDTO getInfoUser(int userCon) {
+		UserDTO userDTO = new UserDTO();
+		UserItemDTO userItemDTO = new UserItemDTO();
+		
+		try {
+			Usuario user = usuarioDao.findByUsuarioIdCon(userCon);
+			
+			
+			
+			
+			userItemDTO.setAvatar("assets/images/avatars/logoVN.jpg");
+			userItemDTO.setEmail(user.getUserEmail());
+			userItemDTO.setId(String.valueOf(user.getIdUsuario()));
+			userItemDTO.setName("Miguel ZorroxDarks Super Admin");
+			userItemDTO.setStatus("online");
+			
+			
+			userDTO.setUser(userItemDTO);
+			
+		}catch (Exception e) {
+			System.out.println("Error :"+e);
+		}
+		
+		
+		
+		return userDTO;
+		
+	}
 	
 	/*
 	 *  id      : 'dashboards',

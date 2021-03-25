@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.conectate.common.dto.NavigationDTO;
 import com.conectate.common.dto.NavigationItemDTO;
+import com.conectate.common.dto.UserDTO;
 import com.conectate.service.CatalogoService;
 
 
@@ -25,9 +26,14 @@ public class CatalogosController {
 	@Autowired
 	CatalogoService catalogoService;
 
-	 @GetMapping(value = "/getNavegacion/{idUser}")
-	 public ResponseEntity<NavigationDTO> getNavigation(){
-		 return new ResponseEntity<NavigationDTO>(catalogoService.getNavigation(), HttpStatus.OK);
+	 @GetMapping(value = "/getNavegacion/{userId}")
+	 public ResponseEntity<NavigationDTO> getNavigation(@PathVariable ("userId") Long userId){
+		 return new ResponseEntity<NavigationDTO>(catalogoService.getNavigation(userId), HttpStatus.OK);
+	 }
+	 
+	 @GetMapping(value = "/getInfoUser/{userCon}")
+	 public ResponseEntity<UserDTO> getInfoUser(@PathVariable ("userCon") int userCon){
+		 return new ResponseEntity<UserDTO>(catalogoService.getInfoUser(userCon), HttpStatus.OK);
 	 }
 	
 	 
