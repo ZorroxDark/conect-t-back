@@ -21,6 +21,7 @@ import com.conectate.service.utils.Utileria;
 
 
 @Service
+@Transactional(readOnly = true)
 public class CatalogoServiceImpl implements CatalogoService{
 
 	@Autowired

@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.conectate.web</groupId>
 	<artifactId>conectate-web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<name>conectate-web</name>
 	<description>Spring Boot web serivces proyecto conectate vida nueva </description>
@@ -109,6 +109,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>conectate-web</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
