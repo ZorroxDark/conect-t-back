@@ -26,13 +26,17 @@ public class ResourceServerConfig  extends ResourceServerConfigurerAdapter{
 	
 		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/clientes").permitAll()
 		                        .antMatchers(HttpMethod.GET,"/catalogo/**").permitAll()
-		.anyRequest().authenticated();
+		//.anyRequest().authenticated();
+		
+		.anyRequest().authenticated()
+		.and().cors().configurationSource(corsConfigurationSource());
+
 	}
 	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://localhost:4401"));
+		config.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://localhost:4401","http://74.208.207.16:8080")); //prueba para que acepte todas peticiones
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowCredentials(true);
 		config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));

@@ -38,12 +38,12 @@ public class ConectateWebApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		String password = "admin";
 		
-//		for(int i = 0 ; i<4 ; i++) {
-//			
-//			String passwordBcrypt = passwordEncoder.encode(password);
-//			System.out.println(passwordBcrypt);
-//			
-//		}
+		for(int i = 0 ; i<4 ; i++) {
+			
+			String passwordBcrypt = passwordEncoder.encode(password);
+			System.out.println(passwordBcrypt);
+			
+		}
 		
 	}
 
